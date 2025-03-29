@@ -32,7 +32,7 @@ jobs:
       - name: Prepare the release package
         run: |
           stashName=`git stash create`;
-          git archive --format=zip --prefix=$SJTUTHESIS_VERSION/ -o SJTUThesis-full-$SJTUTHESIS_VERSION.zip stashName
+          git archive --format=zip --prefix=$SJTUTHESIS_VERSION/ -o SJTUThesis-full-$SJTUTHESIS_VERSION.zip $stashName
       - name: Build with XeLaTeX
         uses: xu-cheng/texlive-action@v2
         with:
