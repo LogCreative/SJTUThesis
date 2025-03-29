@@ -27,7 +27,7 @@ jobs:
           rm texmf/sjtutex.tds.zip
       - name: Prepare the release package
         run: |
-          git archive --format=zip --prefix=${{ github.ref_name }}/ --add-file=texmf -o SJTUThesis-full-${{ github.ref_name }}.zip HEAD
+          git archive --format=zip --prefix=${{ github.ref_name }}/ -o SJTUThesis-full-${{ github.ref_name }}.zip `git stash create`
       - name: Build with XeLaTeX
         uses: xu-cheng/texlive-action@v2
         with:
