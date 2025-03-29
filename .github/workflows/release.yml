@@ -27,7 +27,7 @@ jobs:
           rm texmf/sjtutex.tds.zip
       - name: Prepare the release package
         run: |
-          zip -r SJTUThesis-full.zip . -x "*.git*" "SJTUThesis-full.zip"
+          git archive --format=zip --prefix=${{ github.ref_name }}/ --add-file=texmf -o SJTUThesis-full-${{ github.ref_name }}.zip HEAD
       - name: Build with XeLaTeX
         uses: xu-cheng/texlive-action@v2
         with:
@@ -37,10 +37,9 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          body: "New release ${{ github.ref }}"
+          tag_name: ${{ github.ref_name }}
           draft: true
           prerelease: false
           files: |
             main.pdf
-            SJTUThesis-full.zip
+            SJTUThesis-full-${{ github.ref_name }}.zip
