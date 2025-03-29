@@ -25,11 +25,14 @@ jobs:
           repo: 'sjtug/SJTUTeX'
           file: 'sjtutex.tds.zip'
           target: 'texmf/sjtutex.tds.zip'
-      - name: Unzip SJTUTeX and prepare release package
+      - name: Unzip SJTUTeX
         run: |
           unzip -o texmf/sjtutex.tds.zip -d texmf
           rm texmf/sjtutex.tds.zip
-          git archive --format=zip --prefix=$SJTUTHESIS_VERSION/ -o SJTUThesis-full-$SJTUTHESIS_VERSION.zip `git stash create`
+      - name: Prepare the release package
+        run: |
+          stashName=`git stash create`;
+          git archive --format=zip --prefix=$SJTUTHESIS_VERSION/ -o SJTUThesis-full-$SJTUTHESIS_VERSION.zip stashName
       - name: Build with XeLaTeX
         uses: xu-cheng/texlive-action@v2
         with:
